@@ -1,4 +1,5 @@
 import { Outlet } from "react-router-dom";
+import useUser from "./hooks/useUser";
 
 function App() {
   return (

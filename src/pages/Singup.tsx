@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import useInput from "../hooks/useInput";
+import useUser from "../hooks/useUser";
 
 export default function Signup() {
   const navigate = useNavigate();
@@ -9,6 +10,8 @@ export default function Signup() {
   const { handleAuth: handleSignup } = useAuth();
   const validate =
     email.includes("@") && password.length >= 8 ? "valid" : "inValid";
+  const { handleRedirectTodo } = useUser();
+  handleRedirectTodo();
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
