@@ -18,8 +18,6 @@ export default function Signup() {
     if (!email || !password) return alert("잘못된 입력입니다.");
     if (!email.includes("@")) return alert("이메일 형식을 지켜주십시오.");
     if (password.length < 8) return alert("비밀번호는 최소 8자 이상입니다.");
-    console.log(email, password);
-
     try {
       const authResponse = await handleSignup({
         email,

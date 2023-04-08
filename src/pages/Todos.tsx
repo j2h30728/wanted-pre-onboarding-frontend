@@ -11,12 +11,15 @@ export default function Todos() {
   const [edit, setEdit] = useState<number | null>(null);
 
   const token = getToken();
+
   if (!token) window.location.href = "/signin";
 
   useEffect(() => {
-    getTodo()
-      .then(response => setTodos(response.data))
-      .catch(error => alert("Todo불러오는데 문제가 발생했습니다."));
+    if (token) {
+      getTodo()
+        .then(response => setTodos(response.data))
+        .catch(error => alert("Todo불러오는데 문제가 발생했습니다."));
+    }
   }, [getTodo]);
 
   const handleChangeUpdateMode = (todo: Todo) => {
@@ -31,7 +34,7 @@ export default function Todos() {
   };
   return (
     <div>
-      <h1>Todo</h1>
+      <h1>Todo List</h1>
       <CreateTodo />
       <ul>
         {todos?.map(todo => (

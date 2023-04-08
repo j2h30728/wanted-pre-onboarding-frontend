@@ -1,11 +1,9 @@
-import { useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
 import useAuth from "../hooks/useAuth";
 import useUser from "../hooks/useUser";
 import { setToken } from "../hooks/useToken";
 
 export default function Signin() {
-  const navigate = useNavigate();
   const { handleInput: handleEmail, input: email } = useInput();
   const { handleInput: handlePassword, input: password } = useInput();
   const { handleAuth: handleSignin } = useAuth();
@@ -26,7 +24,7 @@ export default function Signin() {
       if (authResponse.status === 200) {
         const token = authResponse.data.access_token;
         setToken(token);
-        navigate("/todo");
+        window.location.href = "/todo";
       }
     } catch (error) {
       console.log(error);

@@ -1,15 +1,15 @@
 import { getToken } from "./useToken";
 
 const useUser = () => {
-  const isToken = getToken();
+  const token = getToken();
 
   const handleRedirectTodo = () => {
-    if (isToken) {
+    if (token) {
       window.location.href = "/todo";
     }
   };
   const handleRedirectAuth = () => {
-    if (!isToken) {
+    if (!token) {
       window.location.href = "/signin";
     }
   };
