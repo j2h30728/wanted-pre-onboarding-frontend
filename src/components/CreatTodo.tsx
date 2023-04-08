@@ -1,9 +1,8 @@
+import { createTodo } from "../api/todo";
 import useInput from "../hooks/useInput";
-import useTodo from "../hooks/useTodo";
 
 const CreateTodo = () => {
   const { handleInput, input, setInput } = useInput();
-  const { createTodo } = useTodo();
   const handlecreateTodo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     createTodo({ todo: input }).catch(error => alert(`잘못된 입력입니다.}`));

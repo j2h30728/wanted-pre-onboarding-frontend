@@ -1,5 +1,4 @@
 import { Outlet } from "react-router-dom";
-import useUser from "./hooks/useUser";
 import Navbar from "./components/Navbar";
 
 function App() {

@@ -1,19 +1,14 @@
 import { getToken } from "./useToken";
 
-const useUser = () => {
-  const token = getToken();
+const token = getToken();
 
-  const handleRedirectTodo = () => {
-    if (token) {
-      window.location.href = "/todo";
-    }
-  };
-  const handleRedirectAuth = () => {
-    if (!token) {
-      window.location.href = "/signin";
-    }
-  };
-  return { handleRedirectTodo, handleRedirectAuth };
+export const handleRedirectTodo = () => {
+  if (token) {
+    window.location.href = "/todo";
+  }
 };
-
-export default useUser;
+export const handleRedirectAuth = () => {
+  if (!token) {
+    window.location.href = "/signin";
+  }
+};

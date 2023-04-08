@@ -1,21 +1,19 @@
-import useInput from "../hooks/useInput";
-import useAuth from "../hooks/useAuth";
-import useUser from "../hooks/useUser";
+import useAuth from "../api/auth";
 import { setToken } from "../hooks/useToken";
+import { handleRedirectTodo } from "../hooks/useUser";
+import useEmailInput from "../hooks/useEmailInput";
+import usePasswordInput from "../hooks/usePasswordInput";
+import { AxiosError } from "axios";
 
 export default function Signin() {
-  const { handleInput: handleEmail, input: email } = useInput();
-  const { handleInput: handlePassword, input: password } = useInput();
+  const { handleEmailInput, email, emailError } = useEmailInput();
+  const { handlePassword, password, passwordError } = usePasswordInput();
   const { handleAuth: handleSignin } = useAuth();
-  const { handleRedirectTodo } = useUser();
   handleRedirectTodo();
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!email || !password) return alert("잘못된 입력입니다.");
-    if (!email.includes("@")) return alert("이메일 형식을 지켜주십시오.");
-    if (password.length < 8) return alert("비밀번호는 최소 8자 이상입니다.");
     try {
+      if (!email || !password) throw new Error("잘못된 입력입니다.");
       const authResponse = await handleSignin({
         email,
         password,
@@ -24,11 +22,13 @@ export default function Signin() {
       if (authResponse.status === 200) {
         const token = authResponse.data.access_token;
         setToken(token);
-        window.location.href = "/todo";
+        window.location.replace("/todo");
       }
-    } catch (error) {
-      console.log(error);
-      alert("이메일 혹은 비밀번호를 확인부탁드립니다.");
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        console.log(e);
+        alert(`[ERROR] ${e.response?.data.message}`);
+      }
     }
   };
 
@@ -43,7 +43,8 @@ export default function Signin() {
             data-testid="email-input"
             type="email"
             placeholder="EMAIL"
-            onChange={handleEmail}
+            onChange={handleEmailInput}
+            value={email}
           />
         </div>
         <div>
@@ -54,9 +55,14 @@ export default function Signin() {
             type="password"
             placeholder="PASSWORD"
             onChange={handlePassword}
+            value={password}
           />
         </div>
-        <button data-testid="signin-button">로그인</button>
+        <button
+          data-testid="signin-button"
+          disabled={emailError || passwordError ? true : false}>
+          로그인
+        </button>
       </form>
     </div>
   );

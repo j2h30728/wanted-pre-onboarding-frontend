@@ -1,6 +1,6 @@
 import { useState } from "react";
+import { Todo, updateTodo } from "../api/todo";
 import { handleCheckbox } from "../hooks/useInput";
-import useTodo, { Todo } from "../hooks/useTodo";
 
 interface EditTodoProps {
   todo: Todo;
@@ -8,8 +8,6 @@ interface EditTodoProps {
 }
 
 const EditTodo = ({ todo, setEdit }: EditTodoProps) => {
-  const { updateTodo } = useTodo();
-
   handleCheckbox({ ...todo, isCompleted: !todo.isCompleted });
 
   const [updateInput, setUpdateInput] = useState<string>();

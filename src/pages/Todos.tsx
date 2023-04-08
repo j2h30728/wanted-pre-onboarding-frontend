@@ -1,12 +1,11 @@
 import { useEffect, useState } from "react";
+import { deleteTodo, getTodo, Todo } from "../api/todo";
 import CreateTodo from "../components/CreatTodo";
 import EditTodo from "../components/EditTodo";
 import { handleCheckbox } from "../hooks/useInput";
-import useTodo, { Todo } from "../hooks/useTodo";
 import { getToken } from "../hooks/useToken";
 
 export default function Todos() {
-  const { getTodo, deleteTodo } = useTodo();
   const [todos, setTodos] = useState<Todo[]>();
   const [edit, setEdit] = useState<number | null>(null);
 
@@ -20,7 +19,7 @@ export default function Todos() {
         .then(response => setTodos(response.data))
         .catch(error => alert("Todo불러오는데 문제가 발생했습니다."));
     }
-  }, [getTodo]);
+  }, [token]);
 
   const handleChangeUpdateMode = (todo: Todo) => {
     setEdit(todo.id);

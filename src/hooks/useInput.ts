@@ -1,4 +1,4 @@
-import { Todo } from "./useTodo";
+import { Todo } from "../api/todo";
 import { useState } from "react";
 
 const useInput = () => {

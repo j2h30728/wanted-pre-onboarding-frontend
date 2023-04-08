@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { clearToken, getToken } from "../hooks/useToken";
-import { useEffect, useState } from "react";
-import useUser from "../hooks/useUser";
+import { useEffect } from "react";
 
 const Navbar = () => {
   const token = getToken();

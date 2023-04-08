@@ -1,32 +1,29 @@
-import { useNavigate } from "react-router-dom";
-import useAuth from "../hooks/useAuth";
-import useInput from "../hooks/useInput";
-import useUser from "../hooks/useUser";
+import { AxiosError } from "axios";
+import useAuth from "../api/auth";
+import usePasswordInput from "../hooks/usePasswordInput";
+import useEmailInput from "../hooks/useEmailInput";
+import { handleRedirectTodo } from "../hooks/useUser";
 
 export default function Signup() {
-  const navigate = useNavigate();
-  const { handleInput: handleEmail, input: email } = useInput();
-  const { handleInput: handlePassword, input: password } = useInput();
+  const { handleEmailInput, email, emailError } = useEmailInput();
+  const { handlePassword, password, passwordError } = usePasswordInput();
   const { handleAuth: handleSignup } = useAuth();
-  const validate =
-    email.includes("@") && password.length >= 8 ? "valid" : "inValid";
-  const { handleRedirectTodo } = useUser();
   handleRedirectTodo();
-
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (!email || !password) return alert("잘못된 입력입니다.");
-    if (!email.includes("@")) return alert("이메일 형식을 지켜주십시오.");
-    if (password.length < 8) return alert("비밀번호는 최소 8자 이상입니다.");
     try {
+      if (!email || !password) throw new Error("잘못된 입력입니다.");
       const authResponse = await handleSignup({
         email,
         password,
         authType: "signup",
       });
-      if (authResponse.status === 201) navigate("/signin");
-    } catch (error) {
-      alert("중복된 이메일이 존재합니다.");
+      if (authResponse.status === 201) window.location.replace("/signin");
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        alert(`[ERROR] ${e.response?.data.message}`);
+        console.log(e);
+      }
     }
   };
   return (
@@ -40,13 +37,10 @@ export default function Signup() {
             data-testid="email-input"
             type="email"
             placeholder="EMAIL"
-            onChange={handleEmail}
+            onChange={handleEmailInput}
+            value={email}
           />
-          <p>
-            {email.length > 5 && !email.includes("@")
-              ? "이메일 형식을 지켜주십시오"
-              : null}
-          </p>
+          <p>{emailError ? "이메일 형식을 지켜주십시오" : null}</p>
         </div>
         <div>
           <label htmlFor="password">Password</label>
@@ -56,14 +50,13 @@ export default function Signup() {
             type="password"
             placeholder="PASSWORD"
             onChange={handlePassword}
+            value={password}
           />
-          <p>
-            {password.length > 2 && password.length < 8
-              ? "비밀번호는 최소 8자 이상입니다."
-              : null}
-          </p>
+          <p>{passwordError ? "비밀번호는 최소 8자 이상입니다." : null}</p>
         </div>
-        <button disabled={validate === "inValid"} data-testid="signup-button">
+        <button
+          disabled={emailError || passwordError ? true : false}
+          data-testid="signup-button">
           회원가입
         </button>
       </form>
