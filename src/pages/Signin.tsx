@@ -1,15 +1,14 @@
 import { useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
 import useAuth from "../hooks/useAuth";
-import useToken from "../hooks/useToken";
 import useUser from "../hooks/useUser";
+import { setToken } from "../hooks/useToken";
 
 export default function Signin() {
   const navigate = useNavigate();
   const { handleInput: handleEmail, input: email } = useInput();
   const { handleInput: handlePassword, input: password } = useInput();
   const { handleAuth: handleSignin } = useAuth();
-  const { setToken } = useToken();
   const { handleRedirectTodo } = useUser();
   handleRedirectTodo();
 

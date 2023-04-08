@@ -4,7 +4,7 @@ import App from "./App";
 import NotFound from "./pages/NotFound";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Singup";
-import Todo from "./pages/Todo";
+import Todos from "./pages/Todos";
 
 const router: Router = createBrowserRouter([
   {
@@ -22,7 +22,7 @@ const router: Router = createBrowserRouter([
       },
       {
         path: "/todo",
-        element: <Todo />,
+        element: <Todos />,
       },
     ],
   },

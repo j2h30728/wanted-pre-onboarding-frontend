@@ -1,14 +1,9 @@
-const useToken = () => {
-  const getToken = () => {
-    return window.localStorage.getItem("token");
-  };
-  const setToken = (token: string) => {
-    window.localStorage.setItem("token", token);
-  };
-  const clearToken = () => {
-    window.localStorage.removeItem("token");
-  };
-  return { getToken, setToken, clearToken };
+export const getToken = () => {
+  return window.localStorage.getItem("token");
 };
-
-export default useToken;
+export const setToken = (token: string) => {
+  window.localStorage.setItem("token", token);
+};
+export const clearToken = () => {
+  window.localStorage.removeItem("token");
+};

@@ -1,7 +1,6 @@
-import useToken from "./useToken";
+import { getToken } from "./useToken";
 
 const useUser = () => {
-  const { getToken } = useToken();
   const isToken = getToken();
 
   const handleRedirectTodo = () => {

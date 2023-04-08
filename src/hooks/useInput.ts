@@ -1,3 +1,4 @@
+import { Todo } from "./useTodo";
 import { useState } from "react";
 
 const useInput = () => {
@@ -10,3 +11,7 @@ const useInput = () => {
 };
 
 export default useInput;
+
+export const handleCheckbox = (todo: Partial<Todo>) => {
+  return { ...todo, isCompleted: !todo.isCompleted };
+};

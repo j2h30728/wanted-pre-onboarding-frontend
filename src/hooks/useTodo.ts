@@ -1,20 +1,18 @@
 import axios, { AxiosResponse } from "axios";
 import { BASE_URL } from "../util/api";
-import useToken from "./useToken";
+import { getToken } from "./useToken";
 
-interface Todo {
+export interface Todo {
   id: number;
   todo: string;
   isCompleted: boolean;
   userId: number;
 }
-interface InputTodo {
+export interface InputTodo {
   todo: string;
-  isCompleted?: boolean;
 }
 
 const useTodo = () => {
-  const { getToken } = useToken();
   const token = getToken();
 
   const createTodo = async ({ todo }: InputTodo) => {
@@ -40,9 +38,9 @@ const useTodo = () => {
     });
   };
 
-  const updateTodo = async ({ todo, isCompleted }: InputTodo) => {
-    return await axios.put<Todo, AxiosResponse<Todo>, InputTodo>(
-      `${BASE_URL}todos`,
+  const updateTodo = async ({ id, todo, isCompleted }: Partial<Todo>) => {
+    return await axios.put<Todo, AxiosResponse<Todo>, Partial<Todo>>(
+      `${BASE_URL}todos/${id}`,
       {
         todo,
         isCompleted,
@@ -54,8 +52,14 @@ const useTodo = () => {
       }
     );
   };
-
-  return { createTodo, getTodo, updateTodo };
+  const deleteTodo = async (id: number) => {
+    return await axios.delete(`${BASE_URL}todos/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+  };
+  return { createTodo, getTodo, updateTodo, deleteTodo };
 };
 
 export default useTodo;
