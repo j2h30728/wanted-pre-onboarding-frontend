@@ -9,7 +9,12 @@ const useUser = () => {
       window.location.href = "/todo";
     }
   };
-  return { handleRedirectTodo };
+  const handleRedirectAuth = () => {
+    if (!isToken) {
+      window.location.href = "/signin";
+    }
+  };
+  return { handleRedirectTodo, handleRedirectAuth };
 };
 
 export default useUser;

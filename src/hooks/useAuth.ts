@@ -1,5 +1,5 @@
 import axios from "axios";
-const BASE_URL = "http://localhost:8000";
+import { BASE_URL } from "../util/api";
 
 interface Signup {
   email: string;
@@ -10,7 +10,7 @@ interface Signup {
 const useAuth = () => {
   const handleAuth = async ({ email, password, authType }: Signup) =>
     await axios.post(
-      BASE_URL + (authType === "signup" ? "/auth/signup" : "/auth/signin"),
+      BASE_URL + (authType === "signup" ? "auth/signup" : "auth/signin"),
       {
         email,
         password,

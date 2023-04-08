@@ -6,7 +6,7 @@ const useInput = () => {
     setInput(event.target.value);
   };
 
-  return { handleInput, input };
+  return { handleInput, input, setInput };
 };
 
 export default useInput;
