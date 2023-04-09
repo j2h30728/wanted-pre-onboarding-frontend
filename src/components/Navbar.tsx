@@ -17,7 +17,7 @@ const Navbar = () => {
       {token ? (
         <p
           onClick={handleLogout}
-          className="absolute right-20 top-[125px] z-10 font-semibold text-sm text-zinc-500 cursor-pointer">
+          className="relative left-28 bottom-5 z-10 font-semibold text-sm text-zinc-500 cursor-pointer">
           로그아웃
         </p>
       ) : null}
