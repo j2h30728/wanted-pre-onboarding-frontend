@@ -36,7 +36,7 @@ export default function Todos() {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-[500px]">
       <h1 className="my-4 font-pacifico text-center text-3xl">Todo List</h1>
       <div className="w-full my-3 flex justify-between">
         <input
