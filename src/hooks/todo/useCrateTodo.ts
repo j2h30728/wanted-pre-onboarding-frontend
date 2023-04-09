@@ -1,6 +1,6 @@
 import { AxiosError } from "axios";
 import { useState } from "react";
-import { createTodo } from "../api/todo";
+import { createTodo } from "../../api/todo";
 
 const useCreateTodo = () => {
   const [input, setInput] = useState<string>("");

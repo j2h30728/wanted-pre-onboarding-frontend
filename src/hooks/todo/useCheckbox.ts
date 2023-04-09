@@ -1,6 +1,7 @@
-import { Todo, updateTodo } from "../api/todo";
+import { updateTodo } from "../../api/todo";
 import { useState } from "react";
-import { AxiosError, isAxiosError } from "axios";
+import { AxiosError } from "axios";
+import { Todo } from "../../types/todo";
 
 const useCheckbox = () => {
   const [isChecked, setIsChecked] = useState(false);

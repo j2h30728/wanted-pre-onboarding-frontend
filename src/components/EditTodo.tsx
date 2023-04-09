@@ -1,6 +1,7 @@
 import { AxiosError } from "axios";
 import { useState } from "react";
-import { Todo, updateTodo } from "../api/todo";
+import { updateTodo } from "../api/todo";
+import { Todo } from "../types/todo";
 
 interface EditTodoProps {
   todo: Todo;

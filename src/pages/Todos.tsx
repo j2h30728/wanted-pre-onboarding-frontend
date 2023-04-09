@@ -1,17 +1,19 @@
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { deleteTodo, getTodo, Todo } from "../api/todo";
+import { getTodo } from "../api/todo";
 import EditTodo from "../components/EditTodo";
-import useCheckbox from "../hooks/useCheckbox";
-import useCreateTodo from "../hooks/useCrateTodo";
-import { getToken } from "../hooks/useToken";
+import { getToken } from "../hooks/auth/useToken";
+import useCheckbox from "../hooks/todo/useCheckbox";
+import useCreateTodo from "../hooks/todo/useCrateTodo";
+import useDeleteTodo from "../hooks/todo/useDeleteTodo";
+import { Todo } from "../types/todo";
 
 export default function Todos() {
   const [todos, setTodos] = useState<Todo[]>();
   const [edit, setEdit] = useState<number | null>(null);
-  const [isDeleted, setIsDeleted] = useState(false);
   const { handleCheckbox, isChecked } = useCheckbox();
   const { handlecreateTodo, isCreated, handleInput, input } = useCreateTodo();
+  const { handleDeleteTodo, isDeleted } = useDeleteTodo();
   const token = getToken();
 
   if (!token) window.location.href = "/signin";
@@ -33,25 +35,9 @@ export default function Todos() {
     setEdit(todo.id);
   };
 
-  const handleDelete = (id: number, todo: string) => {
-    window.confirm(`${todo}를 삭제하시겠습니까?`);
-    deleteTodo(id)
-      .then(response => {
-        if (response.status === 204) {
-          alert("삭제되었습니다.");
-          setIsDeleted(true);
-        }
-      })
-      .catch(e => {
-        if (e instanceof AxiosError) {
-          alert(`[ERROR] ${e.response?.data.message}`);
-        }
-      });
-    setIsDeleted(false);
-  };
   return (
     <div className="w-full h-full">
-      <h1 className={todoStyle.title}>Todo List</h1>
+      <h1 className="my-4 font-pacifico text-center text-3xl">Todo List</h1>
       <div className="w-full my-3 flex justify-between">
         <input
           type="text"
@@ -63,7 +49,7 @@ export default function Todos() {
         />
         <button
           data-testid="new-todo-add-button"
-          className="w-12 text-xl cursor-pointer bg-zinc-700 text-zinc-50 p-1 rounded-md"
+          className="w-12 text-xl cursor-pointer bg-zinc-700 text-zinc-50 p-1 rounded-md hover:bg-zinc-600 active:bg-red-900"
           onClick={handlecreateTodo}>
           +
         </button>
@@ -95,7 +81,7 @@ export default function Todos() {
                     </button>
                     <button
                       data-testid="delete-button"
-                      onClick={() => handleDelete(todo.id, todo.todo)}
+                      onClick={() => handleDeleteTodo(todo.id, todo.todo)}
                       className="bg-red-700 cursor-pointer text-zinc-50 p-1 text-sm rounded-lg">
                       삭제
                     </button>
@@ -109,12 +95,3 @@ export default function Todos() {
     </div>
   );
 }
-const todoStyle = {
-  title: "my-4 font-pacifico text-center text-3xl",
-  form: "flex flex-col mt-3",
-  inputContainer: "flex flex-col my-3 space-y-2",
-  input: "p-2 rounded",
-  button: "w-full my-3 bg-zinc-500 rounded h-9 text-stone-50",
-  otherLink:
-    "ml-4 cursor-pointer border-b-2 border-solid text-zinc-500 hover:text-zinc-400 active:text-red-800",
-};

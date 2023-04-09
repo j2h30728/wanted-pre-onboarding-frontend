@@ -1,11 +1,6 @@
 import axios from "axios";
+import { Signup } from "../types/auth";
 import { BASE_URL } from "../util/api";
-
-interface Signup {
-  email: string;
-  password: string;
-  authType: "signup" | "signin";
-}
 
 const useAuth = () => {
   const handleAuth = async ({ email, password, authType }: Signup) =>

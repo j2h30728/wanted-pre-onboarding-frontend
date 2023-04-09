@@ -1,9 +1,9 @@
 import { AxiosError } from "axios";
 import useAuth from "../api/auth";
-import usePasswordInput from "../hooks/usePasswordInput";
-import useEmailInput from "../hooks/useEmailInput";
-import { handleRedirectTodo } from "../hooks/useUser";
+import useEmailInput from "../hooks/auth/useEmailInput";
 import { Link } from "react-router-dom";
+import { handleRedirectTodo } from "../hooks/auth/useUser";
+import usePasswordInput from "../hooks/auth/usePasswordInput";
 
 export default function Signup() {
   const { handleEmailInput, email, emailError } = useEmailInput();
@@ -23,7 +23,6 @@ export default function Signup() {
     } catch (e) {
       if (e instanceof AxiosError) {
         alert(`[ERROR] ${e.response?.data.message}`);
-        console.log(e);
       }
     }
   };
@@ -76,7 +75,8 @@ const authStyle = {
   form: "flex flex-col mt-3",
   inputContainer: "flex flex-col my-3 space-y-2",
   input: "p-2 rounded",
-  button: "w-full my-3 bg-zinc-500 rounded h-9 text-stone-50",
+  button:
+    "w-full my-3 rounded h-9 bg-zinc-500 text-white rounded-md hover:bg-zinc-400 active:bg-red-900",
   otherLink:
     "ml-4 cursor-pointer border-b-2 border-solid text-zinc-500 hover:text-zinc-400 active:text-red-800",
 };

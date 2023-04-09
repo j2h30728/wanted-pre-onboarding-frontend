@@ -1,6 +1,5 @@
-import { Link } from "react-router-dom";
-import { clearToken, getToken } from "../hooks/useToken";
 import { useEffect } from "react";
+import { clearToken, getToken } from "../hooks/auth/useToken";
 
 const Navbar = () => {
   const token = getToken();

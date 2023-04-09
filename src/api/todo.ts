@@ -1,16 +1,8 @@
 import axios, { AxiosResponse } from "axios";
+import { getToken } from "../hooks/auth/useToken";
+import { InputTodo, Todo } from "../types/todo";
 import { BASE_URL } from "../util/api";
-import { getToken } from "../hooks/useToken";
 
-export interface Todo {
-  id: number;
-  todo: string;
-  isCompleted: boolean;
-  userId: number;
-}
-export interface InputTodo {
-  todo: string;
-}
 const token = getToken();
 
 export const createTodo = async ({ todo }: InputTodo) => {
