@@ -26,15 +26,3 @@ const Navbar = () => {
 };
 
 export default Navbar;
-
-/**
- * (
-        <div>
-          <Link to="/signup" className="font-mono">
-            회원 가입
-          </Link>
-          <Link to="/signin">로그인</Link>
-        </div>
-      )
- * 
- */
