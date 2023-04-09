@@ -3,6 +3,7 @@ import useAuth from "../api/auth";
 import usePasswordInput from "../hooks/usePasswordInput";
 import useEmailInput from "../hooks/useEmailInput";
 import { handleRedirectTodo } from "../hooks/useUser";
+import { Link } from "react-router-dom";
 
 export default function Signup() {
   const { handleEmailInput, email, emailError } = useEmailInput();
@@ -27,39 +28,55 @@ export default function Signup() {
     }
   };
   return (
-    <div>
-      <h1>회원가입</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email : </label>
+    <div className="w-full">
+      <h1 className={authStyle.title}>SIGN IN</h1>
+      <form onSubmit={handleSubmit} className={authStyle.form}>
+        <div className={authStyle.inputContainer}>
+          <label htmlFor="email">이메일</label>
           <input
             id="email"
             data-testid="email-input"
             type="email"
-            placeholder="EMAIL"
+            placeholder="이메일을 입력해주세요."
             onChange={handleEmailInput}
             value={email}
+            className={authStyle.input}
           />
           <p>{emailError ? "이메일 형식을 지켜주십시오" : null}</p>
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
+        <div className={authStyle.inputContainer}>
+          <label htmlFor="password">비밀번호</label>
           <input
             id="password"
             data-testid="password-input"
             type="password"
-            placeholder="PASSWORD"
+            placeholder="최소 8자 이상 입력해주세요."
             onChange={handlePassword}
             value={password}
+            className={authStyle.input}
           />
           <p>{passwordError ? "비밀번호는 최소 8자 이상입니다." : null}</p>
         </div>
         <button
           disabled={emailError || passwordError ? true : false}
-          data-testid="signup-button">
+          data-testid="signup-button"
+          className={authStyle.button}>
           회원가입
         </button>
       </form>
+      <span>계정이 있으신가요?</span>
+      <Link to="/signin" className={authStyle.otherLink}>
+        로그인
+      </Link>
     </div>
   );
 }
+const authStyle = {
+  title: "my-4 font-pacifico text-center text-3xl",
+  form: "flex flex-col mt-3",
+  inputContainer: "flex flex-col my-3 space-y-2",
+  input: "p-2 rounded",
+  button: "w-full my-3 bg-zinc-500 rounded h-9 text-stone-50",
+  otherLink:
+    "ml-4 cursor-pointer border-b-2 border-solid text-zinc-500 hover:text-zinc-400 active:text-red-800",
+};

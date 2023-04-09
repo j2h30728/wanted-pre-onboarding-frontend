@@ -1,6 +1,7 @@
 import { Router } from "@remix-run/router";
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
+import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Singup";
@@ -12,6 +13,10 @@ const router: Router = createBrowserRouter([
     element: <App />,
     errorElement: <NotFound />,
     children: [
+      {
+        path: "",
+        element: <Home />,
+      },
       {
         path: "/signup",
         element: <Signup />,

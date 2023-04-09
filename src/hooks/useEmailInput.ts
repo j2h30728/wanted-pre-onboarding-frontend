@@ -5,7 +5,6 @@ export const useEmailInput = () => {
   const [emailError, setEmailError] = useState<string>();
 
   const handleEmailInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(!/@/.test(event.target.value));
     !/@/.test(event.target.value)
       ? setEmailError(`이메일 형식을 지켜주십시오`)
       : setEmailError("");

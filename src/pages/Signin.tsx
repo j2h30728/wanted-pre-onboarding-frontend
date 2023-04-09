@@ -4,6 +4,7 @@ import { handleRedirectTodo } from "../hooks/useUser";
 import useEmailInput from "../hooks/useEmailInput";
 import usePasswordInput from "../hooks/usePasswordInput";
 import { AxiosError } from "axios";
+import { Link } from "react-router-dom";
 
 export default function Signin() {
   const { handleEmailInput, email, emailError } = useEmailInput();
@@ -33,37 +34,53 @@ export default function Signin() {
   };
 
   return (
-    <div>
-      <h1>로그인</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="email">Email : </label>
+    <div className="w-full">
+      <h1 className={authStyle.title}>LOGIN</h1>
+      <form onSubmit={handleSubmit} className={authStyle.form}>
+        <div className={authStyle.inputContainer}>
+          <label htmlFor="email">이메일</label>
           <input
             id="email"
             data-testid="email-input"
             type="email"
-            placeholder="EMAIL"
+            placeholder="이메일을 입력해주세요."
             onChange={handleEmailInput}
             value={email}
+            className={authStyle.input}
           />
         </div>
-        <div>
-          <label htmlFor="password">Password</label>
+        <div className={authStyle.inputContainer}>
+          <label htmlFor="password">비밀번호</label>
           <input
             id="password"
             data-testid="password-input"
             type="password"
-            placeholder="PASSWORD"
+            placeholder="비밀번호를 입력해주세요."
             onChange={handlePassword}
             value={password}
+            className={authStyle.input}
           />
         </div>
         <button
           data-testid="signin-button"
-          disabled={emailError || passwordError ? true : false}>
+          disabled={emailError || passwordError ? true : false}
+          className={authStyle.button}>
           로그인
         </button>
       </form>
+      <span>계정이 없으신가요?</span>
+      <Link to="/signup" className={authStyle.otherLink}>
+        회원가입
+      </Link>
     </div>
   );
 }
+const authStyle = {
+  title: "my-4 font-pacifico text-center text-3xl",
+  form: "flex flex-col mt-3",
+  inputContainer: "flex flex-col my-3 space-y-2",
+  input: "p-2 rounded",
+  button: "w-full my-3 bg-zinc-500 rounded h-9 text-stone-50",
+  otherLink:
+    "ml-4 cursor-pointer border-b-2 border-solid text-zinc-500 hover:text-zinc-400 active:text-red-800",
+};
