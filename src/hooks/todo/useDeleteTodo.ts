@@ -4,21 +4,24 @@ import { deleteTodo } from "../../api/todo";
 
 const useDeleteTodo = () => {
   const [isDeleted, setIsDeleted] = useState(false);
-  const handleDeleteTodo = (id: number, todo: string) => {
-    window.confirm(`${todo}를 삭제하시겠습니까?`);
-    deleteTodo(id)
-      .then(response => {
+  const handleDeleteTodo = async (id: number, todo: string) => {
+    setIsDeleted(false);
+    const cnofirm = window.confirm(`${todo}를 삭제하시겠습니까?`);
+    try {
+      if (cnofirm) {
+        const response = await deleteTodo(id);
         if (response.status === 204) {
           alert("삭제되었습니다.");
           setIsDeleted(true);
         }
-      })
-      .catch(e => {
-        if (e instanceof AxiosError) {
-          alert(`[ERROR] ${e.response?.data.message}`);
-        }
-      });
-    setIsDeleted(false);
+      }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        alert(`[ERROR] ${e.response?.data.message}`);
+      } else {
+        alert(e);
+      }
+    }
   };
   return { handleDeleteTodo, isDeleted };
 };

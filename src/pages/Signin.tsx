@@ -1,39 +1,26 @@
-import useAuth from "../api/auth";
 import useEmailInput from "../hooks/auth/useEmailInput";
-import { AxiosError } from "axios";
 import { Link } from "react-router-dom";
 import usePasswordInput from "../hooks/auth/usePasswordInput";
 import { handleRedirectTodo } from "../hooks/auth/useUser";
-import { setToken } from "../hooks/auth/useToken";
+import useSignin from "../hooks/auth/useSignin";
 
 export default function Signin() {
   const { handleEmailInput, email, setEmailError, emailError } =
     useEmailInput();
   const { handlePassword, password, setPaswordError, passwordError } =
     usePasswordInput();
-  const { handleAuth: handleSignin } = useAuth();
+  const handleSignin = useSignin();
+
   handleRedirectTodo();
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       if (!email || !password) throw new Error("잘못된 입력입니다.");
-      const authResponse = await handleSignin({
-        email,
-        password,
-        authType: "signin",
-      });
-      if (authResponse.status === 200) {
-        const token = authResponse.data.access_token;
-        setToken(token);
-        window.location.replace("/todo");
-      }
+      handleSignin({ email, password, authType: "signin" });
     } catch (e) {
+      alert(e);
       setEmailError(`잘못된 입력입니다.`);
       setPaswordError(`잘못된 입력입니다.`);
-      alert(e);
-      if (e instanceof AxiosError) {
-        alert(`[ERROR] ${e.response?.data.message}`);
-      }
     }
   };
 

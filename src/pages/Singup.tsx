@@ -1,30 +1,22 @@
-import { AxiosError } from "axios";
-import useAuth from "../api/auth";
 import useEmailInput from "../hooks/auth/useEmailInput";
 import { Link } from "react-router-dom";
 import { handleRedirectTodo } from "../hooks/auth/useUser";
 import usePasswordInput from "../hooks/auth/usePasswordInput";
+import useSignup from "../hooks/auth/useSigup";
 
 export default function Signup() {
   const { handleEmailInput, email, emailError } = useEmailInput();
   const { handlePassword, password, passwordError } = usePasswordInput();
-  const { handleAuth: handleSignup } = useAuth();
+  const handleSignup = useSignup();
   handleRedirectTodo();
+
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
       if (!email || !password) throw new Error("잘못된 입력입니다.");
-      const authResponse = await handleSignup({
-        email,
-        password,
-        authType: "signup",
-      });
-      if (authResponse.status === 201) window.location.replace("/signin");
+      handleSignup({ email, password, authType: "signup" });
     } catch (e) {
       alert(e);
-      if (e instanceof AxiosError) {
-        alert(`[ERROR] ${e.response?.data.message}`);
-      }
     }
   };
 

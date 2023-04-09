@@ -1,36 +1,27 @@
-import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import { getTodo } from "../api/todo";
 import EditTodo from "../components/EditTodo";
 import { getToken } from "../hooks/auth/useToken";
 import useCheckbox from "../hooks/todo/useCheckbox";
 import useCreateTodo from "../hooks/todo/useCrateTodo";
 import useDeleteTodo from "../hooks/todo/useDeleteTodo";
 import { Todo } from "../types/todo";
+import useGetTodos from "../hooks/todo/useGetTodos";
 
 export default function Todos() {
-  const [todos, setTodos] = useState<Todo[]>();
+  const token = getToken();
   const [edit, setEdit] = useState<number | null>(null);
   const { handleCheckbox, isChecked } = useCheckbox();
   const { handlecreateTodo, isCreated, handleInput, input } = useCreateTodo();
   const { handleDeleteTodo, isDeleted } = useDeleteTodo();
-  const token = getToken();
+  const { handleGetTodos, todos } = useGetTodos();
 
   if (!token) window.location.href = "/signin";
+
   useEffect(() => {
     if (token) {
-      getTodo()
-        .then(response => {
-          setTodos(response.data);
-        })
-        .catch(e => {
-          if (e instanceof AxiosError) {
-            alert(`[ERROR] ${e.response?.data.message}`);
-          }
-        });
+      handleGetTodos();
     }
   }, [token, edit, isChecked, isDeleted, isCreated]);
-
   const handleChangeUpdateMode = (todo: Todo) => {
     setEdit(todo.id);
   };

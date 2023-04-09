@@ -10,18 +10,22 @@ const useCreateTodo = () => {
   };
   const [isCreated, setIsCreated] = useState(false);
 
-  const handlecreateTodo = (event: any) => {
-    event.preventDefault();
-
-    createTodo({ todo: input })
-      .then(response => response.status === 201 && setIsCreated(true))
-      .catch(e => {
-        if (e instanceof AxiosError) {
-          alert(`[ERROR] ${e.response?.data.message}`);
-        }
-      });
-    setInput("");
+  const handlecreateTodo = async (event: any) => {
     setIsCreated(false);
+    event.preventDefault();
+    try {
+      const response = await createTodo({ todo: input });
+      if (response.status === 201) {
+        setInput("");
+        setIsCreated(true);
+      }
+    } catch (e) {
+      if (e instanceof AxiosError) {
+        alert(`[ERROR] ${e.response?.data.message}`);
+      } else {
+        alert(e);
+      }
+    }
   };
   return { handlecreateTodo, isCreated, handleInput, input };
 };
