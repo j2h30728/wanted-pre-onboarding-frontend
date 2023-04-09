@@ -13,3 +13,44 @@ $ npm run start
 
 [원티드 프리온보딩 프론트엔드 - 선발 과제 배포 링크](https://wanted-pre-onboarding-frontend-2gjvt3tfa-j2h30728.vercel.app/)
 (배포링크로 데모 영상을 대체합니다.)
+
+## 홈페이지 프리뷰
+
+<details>
+<summary>홈 화면</summary>
+<div markdown="1">
+<img src="https://i.ibb.co/NyPFvNy/2023-04-09-9-33-59.png" alt="홈화면">
+</div>
+</details>
+
+<details>
+<summary>회원가입 페이지</summary>
+<div markdown="1">
+<img src="https://i.ibb.co/QKLZ6QK/2023-04-09-9-35-07.png" alt="2023-04-09-9-35-07">
+<img src="https://i.ibb.co/y4vR61w/2023-04-09-9-34-33.png" alt="2023-04-09-9-34-33" >
+</div>
+</details>
+
+<details>
+<summary>로그인 페이지</summary>
+<div markdown="1">
+<img src="https://i.ibb.co/BnmYBs7/2023-04-09-9-35-16.png" alt="2023-04-09-9-35-16">
+<img src="https://i.ibb.co/RH5tzFn/2023-04-09-9-34-49.png" alt="2023-04-09-9-34-49" >
+</div>
+</details>
+
+<details>
+<summary>TODOLIST 기본 페이지</summary>
+<div markdown="1">
+<img src="https://i.ibb.co/yk5fBQs/2023-04-09-9-36-31.png" alt="2023-04-09-9-36-31" >
+<img src="https://i.ibb.co/ScCbmVn/2023-04-09-9-53-55.png" alt="2023-04-09-9-53-55" >
+</div>
+</details>
+
+<details>
+<summary>TODOLIST 수정 모드 페이지</summary>
+<div markdown="1">
+<img src="https://i.ibb.co/qW7m5Kz/2023-04-09-9-37-14.png" alt="2023-04-09-9-37-14" >
+<img src="https://i.ibb.co/2sz82BT/2023-04-09-9-37-32.png" alt="2023-04-09-9-37-32" >
+</div>
+</details>
