@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 const usePasswordInput = () => {
-  const [password, setPassword] = useState<string>();
-  const [passwordError, setPaswordError] = useState<string>();
+  const [password, setPassword] = useState("");
+  const [passwordError, setPaswordError] = useState("");
 
   const handlePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     event.target.value.length < 8
@@ -11,6 +11,12 @@ const usePasswordInput = () => {
     setPassword(event.target.value);
   };
 
-  return { handlePassword, password, setPassword, passwordError };
+  return {
+    handlePassword,
+    password,
+    setPassword,
+    setPaswordError,
+    passwordError,
+  };
 };
 export default usePasswordInput;
