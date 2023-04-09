@@ -48,7 +48,7 @@ const EditTodo = ({ todo, setEdit }: EditTodoProps) => {
         onChange={handleUpdateInput}
         data-testid="modify-input"
         value={updateInput ? updateInput : todo.todo}
-        className="bg-transparent border-b-2 border-blue-500"
+        className="w-3/5 bg-transparent border-b-2 border-blue-500"
       />
       <div>
         <button
