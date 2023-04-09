@@ -68,7 +68,10 @@ export default function Todos() {
                       checked={todo.isCompleted}
                       onChange={() => handleCheckbox(todo)}
                     />
-                    <span className="w-5/6 ml-2 font-semibold break-words">
+                    <span
+                      className={`w-5/6 ml-2 font-semibold break-words ${
+                        todo.isCompleted ? " line-through" : ""
+                      }`}>
                       {todo.todo}
                     </span>
                   </label>
