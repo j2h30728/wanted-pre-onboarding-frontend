@@ -1,7 +1,6 @@
-import { AxiosError } from "axios";
-import { useState } from "react";
-import { updateTodo } from "../api/todo";
+import useUpdateTodo from "../hooks/todo/ueeUpdateTodo";
 import { Todo } from "../types/todo";
+import { useEffect } from "react";
 
 interface EditTodoProps {
   todo: Todo;
@@ -9,32 +8,25 @@ interface EditTodoProps {
 }
 
 const EditTodo = ({ todo, setEdit }: EditTodoProps) => {
-  const [checkboxStatus, setCheckboxStatus] = useState<boolean>(
-    todo.isCompleted
-  );
+  const {
+    handleUpdateTodo,
+    isUpdated,
+    setCheckboxStatus,
+    updateInput,
+    setUpdateInput,
+  } = useUpdateTodo(todo);
 
-  const [updateInput, setUpdateInput] = useState<string>();
   const handleUpdateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setUpdateInput(event.target.value);
   };
   const handleCheckbox = (event: React.ChangeEvent<HTMLInputElement>) => {
     setCheckboxStatus(event.currentTarget.checked);
   };
-
-  const handleUpdateTodo = (todo: Partial<Todo>) => {
-    updateTodo({
-      ...todo,
-      todo: updateInput ? updateInput : todo.todo,
-      isCompleted: checkboxStatus,
-    })
-      .then(response => response.status === 200 && setEdit(null))
-      .catch(e => {
-        if (e instanceof AxiosError) {
-          alert(`[ERROR] ${e.response?.data.message}`);
-        }
-      });
-    setUpdateInput("");
-  };
+  useEffect(() => {
+    if (isUpdated) {
+      setEdit(null);
+    }
+  }, [isUpdated]);
 
   return (
     <div className="flex justify-between items-center">
@@ -47,7 +39,7 @@ const EditTodo = ({ todo, setEdit }: EditTodoProps) => {
         type="text"
         onChange={handleUpdateInput}
         data-testid="modify-input"
-        value={updateInput ? updateInput : todo.todo}
+        value={updateInput}
         className="w-3/5 bg-transparent border-b-2 border-blue-500"
       />
       <div>
