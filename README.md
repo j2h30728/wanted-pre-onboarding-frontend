@@ -11,7 +11,7 @@ $ npm run start
 
 ## 배포 사이트
 
-[원티드 프리온보딩 프론트엔드 - 선발 과제 배포 링크](https://wanted-pre-onboarding-frontend-2gjvt3tfa-j2h30728.vercel.app/)
+[원티드 프리온보딩 프론트엔드 - 선발 과제 배포 링크](https://wanted-pre-onboarding-frontend-brjafknk5-j2h30728.vercel.app/)
 (배포링크로 데모 영상을 대체합니다.)
 
 ## 홈페이지 프리뷰
