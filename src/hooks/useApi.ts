@@ -1,40 +1,32 @@
 import axios, { AxiosError } from "axios";
 import { useState } from "react";
-import type { RawAxiosRequestHeaders } from "axios";
+import { api } from "../api";
 
 type MethodType = "get" | "post" | "put" | "delete";
-
-interface ConfigType {
-  headers?: RawAxiosRequestHeaders;
-}
-interface UseAxiosState<T> {
+interface UseApiState<T> {
   loading: boolean;
   data?: any;
   error?: unknown;
 }
 
-type UseAxiosResult<T> = [
-  (method: MethodType, url: string, data?: any, config?: ConfigType) => void,
-  UseAxiosState<T>
+type UseApiResult<T> = [
+  (method: MethodType, url: string, data?: any) => void,
+  UseApiState<T>
 ];
 axios.defaults.baseURL = "https://www.pre-onboarding-selection-task.shop/";
-export default function useAxios<T>(): UseAxiosResult<T> {
-  const [state, setState] = useState<UseAxiosState<T>>({
+export default function useApi<T>(): UseApiResult<T> {
+  const [state, setState] = useState<UseApiState<T>>({
     loading: false,
     data: undefined,
     error: undefined,
   });
-  const request = async (
-    method: MethodType,
-    url: string,
-    data: any = null,
-    config: ConfigType = {}
-  ) => {
+  const request = async (method: MethodType, url: string, data: any = null) => {
     try {
       setState(prev => ({ ...prev, loading: true }));
-      const response = await axios[method](url, data, config);
+      const response = await api[method](url, data);
       console.log(response);
-      setState(prev => ({ ...prev, data: response.data, loading: false }));
+      if (response)
+        setState(prev => ({ ...prev, data: response.data, loading: false }));
     } catch (error) {
       console.error(error);
       if (error instanceof AxiosError) {

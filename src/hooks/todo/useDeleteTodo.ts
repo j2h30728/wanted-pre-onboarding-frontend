@@ -1,20 +1,14 @@
-import { getToken } from "../auth/useToken";
-import useAxios from "../useAxios";
+import useApi from "../useApi";
 import { AxiosResponseType } from "../../types/api";
 
 const useDeleteTodo = () => {
-  const [request, { loading, error }] = useAxios<AxiosResponseType>();
+  const [request, { loading, error }] = useApi<AxiosResponseType>();
 
-  const token = getToken();
   const handleDeleteTodo = (id: number, todo: string) => {
     const cnofirm = window.confirm(`${todo}를 삭제하시겠습니까?`);
     try {
       if (cnofirm) {
-        request("delete", `todos/${id}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        request("delete", `todos/${id}`);
         alert("삭제되었습니다.");
       }
     } catch (error) {
@@ -22,6 +16,6 @@ const useDeleteTodo = () => {
     }
   };
 
-  return { handleDeleteTodo, isDeleted: !error && loading };
+  return { handleDeleteTodo, isDeleted: !error && !loading };
 };
 export default useDeleteTodo;

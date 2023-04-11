@@ -1,34 +1,22 @@
 import { useState } from "react";
 import { Todo } from "../../types/todo";
-import { getToken } from "../auth/useToken";
-import useAxios from "../useAxios";
+import useApi from "../useApi";
 import { AxiosResponseType } from "../../types/api";
 
 const useUpdateTodo = (todo: Todo) => {
   const [checkboxStatus, setCheckboxStatus] = useState<boolean>(
     todo.isCompleted
   );
-  const [request, { data }] = useAxios<AxiosResponseType>();
+  const [request, { data }] = useApi<AxiosResponseType>();
   const [updateInput, setUpdateInput] = useState<string>(todo.todo);
-  const token = getToken();
-
   const handleUpdateTodo = async (todo: Partial<Todo>) => {
     try {
-      request(
-        "put",
-        `todos/${todo.id}`,
-        {
-          ...todo,
-          todo: updateInput ? updateInput : todo.todo,
-          isCompleted: checkboxStatus,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-        }
-      );
+      if (!updateInput) throw new Error("TODO 내용이 비어있습니다.");
+      request("put", `todos/${todo.id}`, {
+        ...todo,
+        todo: updateInput,
+        isCompleted: checkboxStatus,
+      });
     } catch (error) {
       alert(error);
     }

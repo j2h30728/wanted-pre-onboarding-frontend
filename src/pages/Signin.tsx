@@ -27,7 +27,6 @@ export default function Signin() {
             placeholder="이메일을 입력해주세요."
             onChange={handleEmailInput}
             value={email}
-            autoComplete="off"
             className={`p-2 rounded ${
               emailError || error ? "border border-red-500 border-solid" : ""
             }`}
@@ -41,7 +40,6 @@ export default function Signin() {
             data-testid="password-input"
             type="password"
             placeholder="비밀번호를 입력해주세요."
-            autoComplete="off"
             onChange={handlePassword}
             value={password}
             className={`p-2 rounded ${

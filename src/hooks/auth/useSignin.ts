@@ -1,11 +1,11 @@
-import useAxios from "../useAxios";
+import useApi from "../useApi";
 import { setToken } from "./useToken";
 import { useEffect } from "react";
 import { User } from "../../types/auth";
 import { AxiosResponseType } from "../../types/api";
 
 const useSignin = () => {
-  const [reqest, { data, error }] = useAxios<AxiosResponseType>();
+  const [reqest, { data, error }] = useApi<AxiosResponseType>();
   useEffect(() => {
     if (data) {
       setToken(data.access_token);
@@ -16,12 +16,7 @@ const useSignin = () => {
   const handleSignin = async ({ email, password }: User) => {
     try {
       if (!email || !password) throw new Error("잘못된 입력입니다.");
-      reqest(
-        "post",
-        `auth/signin`,
-        { email, password },
-        { headers: { "Content-Type": `application/json` } }
-      );
+      reqest("post", `auth/signin`, { email, password });
     } catch (error) {
       alert(error);
     }

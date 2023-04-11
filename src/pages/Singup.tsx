@@ -26,7 +26,6 @@ export default function Signup() {
             data-testid="email-input"
             type="email"
             placeholder="이메일을 입력해주세요."
-            autoComplete="off"
             required
             onChange={handleEmailInput}
             value={email}
@@ -43,7 +42,6 @@ export default function Signup() {
             data-testid="password-input"
             type="password"
             placeholder="최소 8자 이상 입력해주세요."
-            autoComplete="off"
             required
             onChange={handlePassword}
             value={password}
