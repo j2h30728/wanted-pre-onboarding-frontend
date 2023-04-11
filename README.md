@@ -11,7 +11,7 @@ $ npm run start
 
 ## 배포 사이트
 
-[원티드 프리온보딩 프론트엔드 - 선발 과제 배포 링크](https://wanted-pre-onboarding-frontend-brjafknk5-j2h30728.vercel.app/)
+[원티드 프리온보딩 프론트엔드 - 선발 과제 배포 링크](https://wanted-pre-onboarding-frontend-fpw3ls2g9-j2h30728.vercel.app/)
 (배포링크로 데모 영상을 대체합니다.)
 
 ## 홈페이지 프리뷰
@@ -26,9 +26,8 @@ $ npm run start
 <details>
 <summary>회원가입 페이지</summary>
 <div markdown="1">
-<img src="https://i.ibb.co/QKLZ6QK/2023-04-09-9-35-07.png" alt="2023-04-09-9-35-07">
-<img src="https://i.ibb.co/y4vR61w/2023-04-09-9-34-33.png" alt="2023-04-09-9-34-33" >
-</div>
+<img src="https://i.ibb.co/YBFTD1z/2023-04-11-1-36-03.png" alt="2023-04-11-1-36-03" >
+<img src="https://i.ibb.co/yqkPZYg/2023-04-11-1-37-01.png" alt="2023-04-11-1-37-01" >
 </details>
 
 <details>
