@@ -1,28 +1,27 @@
-import { AxiosError } from "axios";
-import { useState } from "react";
-import { deleteTodo } from "../../api/todo";
+import { getToken } from "../auth/useToken";
+import useAxios from "../useAxios";
+import { AxiosResponseType } from "../../types/api";
 
 const useDeleteTodo = () => {
-  const [isDeleted, setIsDeleted] = useState(false);
-  const handleDeleteTodo = async (id: number, todo: string) => {
-    setIsDeleted(false);
+  const [request, { loading, error }] = useAxios<AxiosResponseType>();
+
+  const token = getToken();
+  const handleDeleteTodo = (id: number, todo: string) => {
     const cnofirm = window.confirm(`${todo}를 삭제하시겠습니까?`);
     try {
       if (cnofirm) {
-        const response = await deleteTodo(id);
-        if (response.status === 204) {
-          alert("삭제되었습니다.");
-          setIsDeleted(true);
-        }
+        request("delete", `todos/${id}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        alert("삭제되었습니다.");
       }
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        alert(`[ERROR] ${e.response?.data.message}`);
-      } else {
-        alert(e);
-      }
+    } catch (error) {
+      alert(error);
     }
   };
-  return { handleDeleteTodo, isDeleted };
+
+  return { handleDeleteTodo, isDeleted: !error && loading };
 };
 export default useDeleteTodo;

@@ -1,32 +1,35 @@
-import { AxiosError } from "axios";
 import { useState } from "react";
-import { createTodo } from "../../api/todo";
+import useAxios from "../useAxios";
+import { getToken } from "../auth/useToken";
+import { AxiosResponseType } from "../../types/api";
 
 const useCreateTodo = () => {
+  const [request, { data, loading }] = useAxios<AxiosResponseType>();
   const [input, setInput] = useState<string>("");
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.value === "") throw new Error("입력칸을 채워주세요.");
     setInput(event.target.value);
   };
-  const [isCreated, setIsCreated] = useState(false);
-
-  const handlecreateTodo = async (event: any) => {
-    setIsCreated(false);
+  const token = getToken();
+  const handlecreateTodo = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     try {
-      const response = await createTodo({ todo: input });
-      if (response.status === 201) {
-        setInput("");
-        setIsCreated(true);
-      }
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        alert(`[ERROR] ${e.response?.data.message}`);
-      } else {
-        alert(e);
-      }
+      if (input === "") throw new Error("입력칸을 채워주세요.");
+      request(
+        "post",
+        `todos`,
+        { todo: input },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      setInput("");
+    } catch (error) {
+      alert(error);
     }
   };
-  return { handlecreateTodo, isCreated, handleInput, input };
+  return { handlecreateTodo, handleInput, input, isCreated: data && !loading };
 };
 export default useCreateTodo;

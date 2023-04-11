@@ -1,37 +1,44 @@
-import { AxiosError } from "axios";
 import { useState } from "react";
-import { updateTodo } from "../../api/todo";
 import { Todo } from "../../types/todo";
+import { getToken } from "../auth/useToken";
+import useAxios from "../useAxios";
+import { AxiosResponseType } from "../../types/api";
 
 const useUpdateTodo = (todo: Todo) => {
   const [checkboxStatus, setCheckboxStatus] = useState<boolean>(
     todo.isCompleted
   );
-
+  const [request, { data }] = useAxios<AxiosResponseType>();
   const [updateInput, setUpdateInput] = useState<string>(todo.todo);
-  const [isUpdated, setIsUpdated] = useState(false);
+  const token = getToken();
 
   const handleUpdateTodo = async (todo: Partial<Todo>) => {
-    setIsUpdated(false);
     try {
-      const response = await updateTodo({
-        ...todo,
-        todo: updateInput ? updateInput : todo.todo,
-        isCompleted: checkboxStatus,
-      });
-      response.status === 200 && setIsUpdated(true);
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        alert(`[ERROR] ${e.response?.data.message}`);
-      }
+      request(
+        "put",
+        `todos/${todo.id}`,
+        {
+          ...todo,
+          todo: updateInput ? updateInput : todo.todo,
+          isCompleted: checkboxStatus,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      alert(error);
     }
   };
   return {
     handleUpdateTodo,
-    isUpdated,
     setCheckboxStatus,
     updateInput,
     setUpdateInput,
+    data,
   };
 };
 export default useUpdateTodo;

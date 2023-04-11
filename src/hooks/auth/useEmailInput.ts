@@ -11,7 +11,7 @@ export const useEmailInput = () => {
     setEmail(event.target.value);
   };
 
-  return { handleEmailInput, email, setEmail, emailError, setEmailError };
+  return { handleEmailInput, email, emailError };
 };
 
 export default useEmailInput;

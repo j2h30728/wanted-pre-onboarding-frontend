@@ -14,8 +14,6 @@ const usePasswordInput = () => {
   return {
     handlePassword,
     password,
-    setPassword,
-    setPaswordError,
     passwordError,
   };
 };

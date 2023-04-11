@@ -1,25 +1,32 @@
-import { updateTodo } from "../../api/todo";
-import { useState } from "react";
-import { AxiosError } from "axios";
 import { Todo } from "../../types/todo";
+import useAxios from "../useAxios";
+import { getToken } from "../auth/useToken";
+import { AxiosResponseType } from "../../types/api";
 
 const useCheckbox = () => {
-  const [isChecked, setIsChecked] = useState(false);
+  const [request, { data }] = useAxios<AxiosResponseType>();
+  const token = getToken();
+
   const handleCheckbox = async (todo: Partial<Todo>) => {
     try {
-      const response = await updateTodo({
-        ...todo,
-        isCompleted: !todo.isCompleted,
-      });
-      if (response.status === 200) setIsChecked(prev => !prev);
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        alert(`[ERROR] ${e.response?.data.message}`);
-      } else {
-        alert(e);
-      }
+      request(
+        "put",
+        `todos/${todo.id}`,
+        {
+          ...todo,
+          isCompleted: !todo.isCompleted,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      );
+    } catch (error) {
+      alert(error);
     }
   };
-  return { handleCheckbox, isChecked };
+  return { handleCheckbox, isChecked: data };
 };
 export default useCheckbox;

@@ -11,12 +11,11 @@ export default function Todos() {
   const token = getToken();
   const [edit, setEdit] = useState<number | null>(null);
   const { handleCheckbox, isChecked } = useCheckbox();
-  const { handlecreateTodo, isCreated, handleInput, input } = useCreateTodo();
-  const { handleDeleteTodo, isDeleted } = useDeleteTodo();
   const { handleGetTodos, todos } = useGetTodos();
+  const { handlecreateTodo, handleInput, input, isCreated } = useCreateTodo();
+  const { handleDeleteTodo, isDeleted } = useDeleteTodo();
 
   if (!token) window.location.href = "/signin";
-
   useEffect(() => {
     if (token) {
       handleGetTodos();
@@ -25,11 +24,12 @@ export default function Todos() {
   const handleChangeUpdateMode = (todo: Todo) => {
     setEdit(todo.id);
   };
-
   return (
     <div className="w-full h-[500px]">
       <h1 className="my-4 font-pacifico text-center text-3xl">Todo List</h1>
-      <div className="w-full my-3 flex justify-between">
+      <form
+        className="w-full my-3 flex justify-between"
+        onSubmit={handlecreateTodo}>
         <input
           type="text"
           onChange={handleInput}
@@ -40,11 +40,10 @@ export default function Todos() {
         />
         <button
           data-testid="new-todo-add-button"
-          className="w-12 text-xl cursor-pointer bg-zinc-700 text-zinc-50 p-1 rounded-md hover:bg-zinc-600 active:bg-red-900"
-          onClick={handlecreateTodo}>
+          className="w-12 text-xl cursor-pointer bg-zinc-700 text-zinc-50 p-1 rounded-md hover:bg-zinc-600 active:bg-red-900">
           +
         </button>
-      </div>
+      </form>
       <ul className="flex flex-col my-4 space-y-2 h-[75%] overflow-auto">
         {todos
           ?.map(todo => (

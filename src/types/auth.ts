@@ -1,5 +1,4 @@
-export interface Signup {
+export interface User {
   email: string;
   password: string;
-  authType: "signup" | "signin";
 }

@@ -1,28 +1,32 @@
-import { AxiosError } from "axios";
-import useAuth from "../../api/auth";
-import { Signup } from "../../types/auth";
+import useAxios from "../useAxios";
 import { setToken } from "./useToken";
+import { useEffect } from "react";
+import { User } from "../../types/auth";
+import { AxiosResponseType } from "../../types/api";
 
 const useSignin = () => {
-  const { handleAuth } = useAuth();
-  const handleSignin = async ({ email, password, authType }: Signup) => {
+  const [reqest, { data, error }] = useAxios<AxiosResponseType>();
+  useEffect(() => {
+    if (data) {
+      setToken(data.access_token);
+      window.location.replace("/todo");
+    }
+  }, [data]);
+
+  const handleSignin = async ({ email, password }: User) => {
     try {
-      const authResponse = await handleAuth({
-        email,
-        password,
-        authType,
-      });
-      if (authResponse.status === 200) {
-        const token = authResponse.data.access_token;
-        setToken(token);
-        window.location.replace("/todo");
-      }
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        alert(`[ERROR] ${e.response?.data.message}`);
-      }
+      if (!email || !password) throw new Error("잘못된 입력입니다.");
+      reqest(
+        "post",
+        `auth/signin`,
+        { email, password },
+        { headers: { "Content-Type": `application/json` } }
+      );
+    } catch (error) {
+      alert(error);
     }
   };
-  return handleSignin;
+
+  return { handleSignin, error };
 };
 export default useSignin;

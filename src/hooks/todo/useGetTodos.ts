@@ -1,22 +1,24 @@
-import { AxiosError } from "axios";
-import { useState } from "react";
-import { deleteTodo, getTodo } from "../../api/todo";
+import { useEffect, useState } from "react";
 import { Todo } from "../../types/todo";
+import useAxios from "../useAxios";
+import { getToken } from "../auth/useToken";
+import { AxiosResponseType } from "../../types/api";
 
 const useGetTodos = () => {
+  const token = getToken();
+  const [request, { data, loading }] = useAxios<AxiosResponseType>();
   const [todos, setTodos] = useState<Todo[]>();
-  const handleGetTodos = async () => {
-    try {
-      const response = await getTodo();
-      if (response) setTodos(response.data);
-    } catch (e) {
-      if (e instanceof AxiosError) {
-        alert(`[ERROR] ${e.response?.data.message}`);
-      } else {
-        alert(e);
-      }
-    }
+  useEffect(() => {
+    setTodos(data);
+  }, [loading]);
+  const handleGetTodos = () => {
+    request("get", `todos`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
   };
+
   return { handleGetTodos, todos };
 };
 export default useGetTodos;

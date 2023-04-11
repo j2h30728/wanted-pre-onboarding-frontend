@@ -2,7 +2,7 @@ import useEmailInput from "../hooks/auth/useEmailInput";
 import { Link } from "react-router-dom";
 import { handleRedirectTodo } from "../hooks/auth/useUser";
 import usePasswordInput from "../hooks/auth/usePasswordInput";
-import useSignup from "../hooks/auth/useSigup";
+import useSignup from "../hooks/auth/useSignup";
 
 export default function Signup() {
   const { handleEmailInput, email, emailError } = useEmailInput();
@@ -10,19 +10,14 @@ export default function Signup() {
   const handleSignup = useSignup();
   handleRedirectTodo();
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    try {
-      if (!email || !password) throw new Error("잘못된 입력입니다.");
-      handleSignup({ email, password, authType: "signup" });
-    } catch (e) {
-      alert(e);
-    }
+    handleSignup({ email, password });
   };
 
   return (
     <div className="w-full">
-      <h1 className="my-4 font-pacifico text-center text-3xl">SIGN IN</h1>
+      <h1 className="my-4 font-pacifico text-center text-3xl">SIGN UP</h1>
       <form onSubmit={handleSubmit} className="flex flex-col mt-3">
         <div className="flex flex-col my-3 space-y-2">
           <label htmlFor="email">이메일</label>
@@ -32,6 +27,7 @@ export default function Signup() {
             type="email"
             placeholder="이메일을 입력해주세요."
             autoComplete="off"
+            required
             onChange={handleEmailInput}
             value={email}
             className={`p-2 rounded ${
@@ -48,6 +44,7 @@ export default function Signup() {
             type="password"
             placeholder="최소 8자 이상 입력해주세요."
             autoComplete="off"
+            required
             onChange={handlePassword}
             value={password}
             className={`p-2 rounded ${

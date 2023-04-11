@@ -10,10 +10,10 @@ interface EditTodoProps {
 const EditTodo = ({ todo, setEdit }: EditTodoProps) => {
   const {
     handleUpdateTodo,
-    isUpdated,
     setCheckboxStatus,
     updateInput,
     setUpdateInput,
+    data: updatedTodo,
   } = useUpdateTodo(todo);
 
   const handleUpdateInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,11 +23,10 @@ const EditTodo = ({ todo, setEdit }: EditTodoProps) => {
     setCheckboxStatus(event.currentTarget.checked);
   };
   useEffect(() => {
-    if (isUpdated) {
+    if (updatedTodo) {
       setEdit(null);
     }
-  }, [isUpdated]);
-
+  }, [updatedTodo]);
   return (
     <div className="flex justify-between items-center">
       <input
