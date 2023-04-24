@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import EditTodo from "../components/EditTodo";
-import { getToken } from "../hooks/auth/useToken";
+import { getToken } from "../util/useToken";
 import useCheckbox from "../hooks/todo/useCheckbox";
 import useCreateTodo from "../hooks/todo/useCrateTodo";
 import useDeleteTodo from "../hooks/todo/useDeleteTodo";
@@ -15,7 +15,6 @@ export default function Todos() {
   const { handlecreateTodo, handleInput, input, isCreated } = useCreateTodo();
   const { handleDeleteTodo, isDeleted } = useDeleteTodo();
 
-  if (!token) window.location.href = "/signin";
   useEffect(() => {
     if (token) {
       handleGetTodos();

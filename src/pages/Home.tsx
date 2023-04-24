@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { getToken } from "../hooks/auth/useToken";
+import { getToken } from "../util/useToken";
 
 export default function Home() {
   const token = getToken();

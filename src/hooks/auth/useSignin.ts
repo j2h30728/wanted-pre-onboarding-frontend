@@ -1,5 +1,5 @@
 import useApi from "../useApi";
-import { setToken } from "./useToken";
+import { setToken } from "../../util/useToken";
 import { useEffect } from "react";
 import { User } from "../../types/auth";
 import { AxiosResponseType } from "../../types/api";

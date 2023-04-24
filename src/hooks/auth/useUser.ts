@@ -1,4 +1,4 @@
-import { getToken } from "./useToken";
+import { getToken } from "../../util/useToken";
 
 const token = getToken();
 

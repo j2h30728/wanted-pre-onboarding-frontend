@@ -13,7 +13,6 @@ type UseApiResult<T> = [
   (method: MethodType, url: string, data?: any) => void,
   UseApiState<T>
 ];
-axios.defaults.baseURL = "https://www.pre-onboarding-selection-task.shop/";
 export default function useApi<T>(): UseApiResult<T> {
   const [state, setState] = useState<UseApiState<T>>({
     loading: false,

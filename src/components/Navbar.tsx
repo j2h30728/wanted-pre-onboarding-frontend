@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { clearToken, getToken } from "../hooks/auth/useToken";
+import { clearToken, getToken } from "../util/useToken";
 
 const Navbar = () => {
   const token = getToken();

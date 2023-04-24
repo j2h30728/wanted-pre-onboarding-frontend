@@ -6,6 +6,7 @@ import NotFound from "./pages/NotFound";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Singup";
 import Todos from "./pages/Todos";
+import PrivateRoute from "./components/PrivateRoute";
 
 const router: Router = createBrowserRouter([
   {
@@ -27,7 +28,7 @@ const router: Router = createBrowserRouter([
       },
       {
         path: "/todo",
-        element: <Todos />,
+        element: <PrivateRoute route={Todos} />,
       },
     ],
   },
