@@ -9,7 +9,7 @@ const Navbar = () => {
     const logoutConfirm = window.confirm("로그아웃 하시겠습니까?");
     if (logoutConfirm) {
       clearToken();
-      window.location.replace("/signin");
+      // window.location.replace("/signin");
     }
   };
   return (

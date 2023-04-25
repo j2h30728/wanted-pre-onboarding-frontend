@@ -6,7 +6,7 @@ import NotFound from "./pages/NotFound";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Singup";
 import Todos from "./pages/Todos";
-import PrivateRoute from "./components/PrivateRoute";
+import PublicRoute from "./components/PublicRoute";
 
 const router: Router = createBrowserRouter([
   {
@@ -20,15 +20,15 @@ const router: Router = createBrowserRouter([
       },
       {
         path: "/signup",
-        element: <Signup />,
+        element: <PublicRoute route={Signup} />,
       },
       {
         path: "/signin",
-        element: <Signin />,
+        element: <PublicRoute route={Signin} />,
       },
       {
         path: "/todo",
-        element: <PrivateRoute route={Todos} />,
+        element: <Todos />,
       },
     ],
   },

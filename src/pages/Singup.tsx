@@ -1,6 +1,5 @@
 import useEmailInput from "../hooks/auth/useEmailInput";
 import { Link } from "react-router-dom";
-import { handleRedirectTodo } from "../hooks/auth/useUser";
 import usePasswordInput from "../hooks/auth/usePasswordInput";
 import useSignup from "../hooks/auth/useSignup";
 
@@ -8,7 +7,6 @@ export default function Signup() {
   const { handleEmailInput, email, emailError } = useEmailInput();
   const { handlePassword, password, passwordError } = usePasswordInput();
   const handleSignup = useSignup();
-  handleRedirectTodo();
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();

@@ -6,8 +6,9 @@ import useCreateTodo from "../hooks/todo/useCrateTodo";
 import useDeleteTodo from "../hooks/todo/useDeleteTodo";
 import { Todo } from "../types/todo";
 import useGetTodos from "../hooks/todo/useGetTodos";
+import { withAuth } from "../hooks/auth/withAuth";
 
-export default function Todos() {
+const Todos = withAuth(() => {
   const token = getToken();
   const [edit, setEdit] = useState<number | null>(null);
   const { handleCheckbox, isChecked } = useCheckbox();
@@ -86,4 +87,6 @@ export default function Todos() {
       </ul>
     </div>
   );
-}
+});
+
+export default Todos;
