@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import React, { useEffect } from "react";
-import useAuth from "./useAuth";
+import useAuth from "../hooks/auth/useAuth";
 
 export const withAuth = (Component: React.ComponentType) => () => {
   const { isLogined } = useAuth();

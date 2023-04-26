@@ -6,7 +6,7 @@ import useCreateTodo from "../hooks/todo/useCrateTodo";
 import useDeleteTodo from "../hooks/todo/useDeleteTodo";
 import { Todo } from "../types/todo";
 import useGetTodos from "../hooks/todo/useGetTodos";
-import { withAuth } from "../hooks/auth/withAuth";
+import { withAuth } from "../hoc/withAuth";
 
 const Todos = withAuth(() => {
   const token = getToken();
