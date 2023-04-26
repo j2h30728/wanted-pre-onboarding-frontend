@@ -1,6 +1,6 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError } from "axios";
 import { useState } from "react";
-import { api } from "../api";
+import { api } from "../util/api";
 
 type MethodType = "get" | "post" | "put" | "delete";
 interface UseApiState<T> {

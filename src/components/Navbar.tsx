@@ -1,20 +1,20 @@
-import { useEffect } from "react";
-import { clearToken, getToken } from "../util/useToken";
+import { clearToken } from "../util/useToken";
+import useAuth from "../hooks/auth/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = () => {
-  const token = getToken();
-  useEffect(() => {}, [token]);
-
+  const { isLogined } = useAuth();
+  const navigate = useNavigate();
   const handleLogout = () => {
     const logoutConfirm = window.confirm("로그아웃 하시겠습니까?");
     if (logoutConfirm) {
       clearToken();
-      // window.location.replace("/signin");
+      navigate("/signin");
     }
   };
   return (
     <>
-      {token ? (
+      {isLogined ? (
         <p
           onClick={handleLogout}
           className="relative left-28 bottom-5 z-10 font-semibold text-sm text-zinc-500 cursor-pointer">
