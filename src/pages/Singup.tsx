@@ -2,8 +2,9 @@ import useEmailInput from "../hooks/auth/useEmailInput";
 import { Link } from "react-router-dom";
 import usePasswordInput from "../hooks/auth/usePasswordInput";
 import useSignup from "../hooks/auth/useSignup";
+import { publicRoute } from "../hoc/publicRoute";
 
-export default function Signup() {
+const Signup = publicRoute(() => {
   const { handleEmailInput, email, emailError } = useEmailInput();
   const { handlePassword, password, passwordError } = usePasswordInput();
   const handleSignup = useSignup();
@@ -66,4 +67,5 @@ export default function Signup() {
       </Link>
     </div>
   );
-}
+});
+export default Signup;

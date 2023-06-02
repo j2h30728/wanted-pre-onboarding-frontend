@@ -1,9 +1,8 @@
 import { Todo } from "../../types/todo";
 import useApi from "../useApi";
-import { AxiosResponseType } from "../../types/api";
 
 const useCheckbox = () => {
-  const [request, { data }] = useApi<AxiosResponseType>();
+  const [request, { data }] = useApi();
   const handleCheckbox = async (todo: Partial<Todo>) => {
     try {
       request("put", `todos/${todo.id}`, {

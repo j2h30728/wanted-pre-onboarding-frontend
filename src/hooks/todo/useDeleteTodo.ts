@@ -1,8 +1,7 @@
 import useApi from "../useApi";
-import { AxiosResponseType } from "../../types/api";
 
 const useDeleteTodo = () => {
-  const [request, { loading, error }] = useApi<AxiosResponseType>();
+  const [request, { loading, error }] = useApi<null>();
 
   const handleDeleteTodo = (id: number, todo: string) => {
     const cnofirm = window.confirm(`${todo}를 삭제하시겠습니까?`);

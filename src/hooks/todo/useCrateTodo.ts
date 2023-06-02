@@ -1,9 +1,9 @@
 import { useState } from "react";
 import useApi from "../useApi";
-import { AxiosResponseType } from "../../types/api";
+import { InputTodo } from "../../types/todo";
 
 const useCreateTodo = () => {
-  const [request, { data }] = useApi<AxiosResponseType>();
+  const [request, { data }] = useApi<InputTodo>();
   const [input, setInput] = useState<string>("");
   const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);

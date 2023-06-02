@@ -1,13 +1,12 @@
 import { useState } from "react";
 import { Todo } from "../../types/todo";
 import useApi from "../useApi";
-import { AxiosResponseType } from "../../types/api";
 
 const useUpdateTodo = (todo: Todo) => {
   const [checkboxStatus, setCheckboxStatus] = useState<boolean>(
     todo.isCompleted
   );
-  const [request, { data }] = useApi<AxiosResponseType>();
+  const [request, { data }] = useApi();
   const [updateInput, setUpdateInput] = useState<string>(todo.todo);
   const handleUpdateTodo = async (todo: Partial<Todo>) => {
     try {
